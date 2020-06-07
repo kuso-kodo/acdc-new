@@ -13,6 +13,9 @@ export class RoomStatusDto {
     id: number;
 
     @ApiProperty()
+    feeRate: number
+
+    @ApiProperty()
     roomName: string
 
     @ApiProperty()
