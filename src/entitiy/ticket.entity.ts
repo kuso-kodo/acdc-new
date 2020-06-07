@@ -12,10 +12,10 @@ export class TicketEntity {
     @Column()
     userId: number
 
-    @Column()
+    @Column({ type: 'timestamp without time zone' })
     startAt: Date
 
-    @Column()
+    @Column({ type: 'timestamp without time zone' })
     endAt: Date
 
     @Column()
@@ -37,5 +37,5 @@ export class TicketEntity {
     isFanSpeedChanged: boolean
 
     @Column()
-    isPriorityChanged: boolean
+    isTargetTemperatureChanged: boolean
 }

@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RoomEntity } from 'src/entitiy/room.entity';
 import { RegisterRoomDto } from 'src/dto';
+import { RoomStatusDto } from 'src/dto/room.dto';
 
 @Injectable()
 export class RoomService {
@@ -10,11 +11,12 @@ export class RoomService {
         @InjectRepository(RoomEntity) private roomRepository: Repository<RoomEntity>) {}
 
     async registerRoom(registerRoomDto: RegisterRoomDto) {
-        const hasNoRoomRegistered = await this.roomRepository.count({ roomName: registerRoomDto.roomName }) == 0;
-        if (hasNoRoomRegistered) {
-            var newRoom = this.roomRepository.create();
-            newRoom.roomName = registerRoomDto.roomName;
-            this.roomRepository.save(newRoom);
+        var newRoom = this.roomRepository.create();
+        newRoom.roomName = registerRoomDto.roomName;
+        try {
+            await this.roomRepository.save(newRoom);
+        } catch(err) {
+            // Do nothing.
         }
     }
 
@@ -25,8 +27,20 @@ export class RoomService {
     async findIdByName(roomName: string): Promise<number | undefined> {
         const room = await this.roomRepository.findOne({ roomName: roomName });
         if (room) {
-            return room.id
+            return room.id;
         }
-        return undefined
+        return undefined;
+    }
+
+    async updateRoomStatus(roomName: string, status: any) {
+        const roomId = await this.findIdByName(roomName);
+        if (roomId) {
+            this.roomRepository.update({id: roomId}, status);
+        }
+    }
+
+    async getRoomStatus(): Promise<RoomEntity[]> {
+        const rooms = await this.roomRepository.find()
+        return rooms
     }
 }

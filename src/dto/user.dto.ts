@@ -4,7 +4,7 @@ export class LoginDto {
     @ApiProperty({
         description: '用户名',
     })
-    username: string;
+    username: string
     @ApiProperty({
         description: '密码',
     })

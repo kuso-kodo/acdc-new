@@ -4,10 +4,11 @@ import { TicketEntity } from "src/entitiy/ticket.entity";
 import { RoomEntity } from "src/entitiy/room.entity";
 import { MapEntity } from "src/entitiy/map.entity";
 import { RoomService } from "./room.service";
+import { MapService } from "./map.service";
 
 @Module({
     imports: [TypeOrmModule.forFeature([TicketEntity, RoomEntity, MapEntity])],
-    providers: [RoomService],
-    exports: [RoomService]
+    providers: [RoomService, MapService],
+    exports: [RoomService, MapService]
 })
 export class AirModule { }
