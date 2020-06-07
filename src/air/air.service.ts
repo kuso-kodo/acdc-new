@@ -14,7 +14,7 @@ export class AirService {
     }
 
     powerOn() {
-        // Dummy function, make our motherfucking stupid, arrogant teacher happy.
+        // Dummy function, make our motherfuckingly stupid, arrogant teacher happy.
         return;
     }
 
