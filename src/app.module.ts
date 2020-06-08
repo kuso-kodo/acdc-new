@@ -4,10 +4,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { AirModule } from './air/air.module';
+import { CustomerController } from './customer.controller';
 
 @Module({
-  imports: [AuthModule, UserModule, TypeOrmModule.forRoot({autoLoadEntities: true})],
-  controllers: [AppController],
+  imports: [AuthModule, UserModule, AirModule, TypeOrmModule.forRoot({autoLoadEntities: true})],
+  controllers: [AppController, CustomerController],
   providers: [AppService],
 })
 export class AppModule {}

@@ -11,8 +11,11 @@ export class RoomService {
         @InjectRepository(RoomEntity) private roomRepository: Repository<RoomEntity>) {}
 
     async registerRoom(registerRoomDto: RegisterRoomDto) {
+        if (await this.findRoom(registerRoomDto.room)) {
+            return;
+        }
         var newRoom = this.roomRepository.create();
-        newRoom.roomName = registerRoomDto.roomName;
+        newRoom.roomName = registerRoomDto.room;
         try {
             await this.roomRepository.save(newRoom);
         } catch(err) {
