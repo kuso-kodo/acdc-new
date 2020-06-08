@@ -12,6 +12,7 @@ export class AirService {
         private roomService: RoomService
     ) {
         this.parameter = new ParamaterDto()
+        this.parameter.feeRatePerCelsius = 1;
     }
 
     setPara(parameter: ParamaterDto) {

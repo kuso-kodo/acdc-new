@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, MoreThan } from 'typeorm';
 import { TicketEntity } from 'src/entitiy/ticket.entity';
@@ -37,6 +37,7 @@ export class TicketService {
         try {
             this.ticketRepository.save(ticket);
         } catch(err) {
+            throw err;
             // Fuck.
         }
     }
@@ -54,6 +55,8 @@ export class TicketService {
 
     async getBillByUser(userId: number): Promise<Bill> {
         const tickets = await this.getTicketsByUser(userId);
+        Logger.log(userId);
+        Logger.log(tickets);
         return {
             tickets: tickets,
             bill: tickets.reduce((l, r) => l + r.totalFee, 0.0)

@@ -5,4 +5,5 @@ export class ScheduleDto {
     currentTemperature: number
     targetTemperature: number
     priority: number
+    serviceCount: number
 }

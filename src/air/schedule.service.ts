@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { ScheduleDto } from 'src/dto/schedule.dto'
 
 @Injectable()
@@ -49,7 +49,7 @@ export class ScheduleService {
         return this.doneQueue.find(i => i.roomId == roomId)
     }
 
-    insertOrUpdateScheduleById(roomId: number, currentTemperature: number, targetTemperature: number, priority: number): boolean {
+    insertOrUpdateScheduleById(roomId: number, currentTemperature: number, targetTemperature: number, priority: number) {
         var index = this.waitQueue.findIndex(i => i.roomId == roomId)
         if(index != -1) {
             this.waitQueue[index].currentTemperature = currentTemperature;
@@ -71,11 +71,13 @@ export class ScheduleService {
             return;
         }
         var dto = new ScheduleDto()
+        dto.roomId = roomId;
         dto.startTemperature = currentTemperature;
         dto.currentTemperature = currentTemperature;
         dto.targetTemperature = targetTemperature;
         dto.startAt = new Date().getTime()
         dto.priority = priority;
+        dto.serviceCount = 0;
         this.insertNewSchedule(dto);
     }
 
@@ -87,10 +89,12 @@ export class ScheduleService {
         if (index < this.runningQueueLimit) {
             var dto = this.waitQueue[index];
             dto.startAt = new Date().getTime();
+            dto.serviceCount = dto.serviceCount + 1;
             this.waitQueue = this.waitQueue.filter(i => i.roomId != roomId);
             this.waitQueue.push(dto);
             this.sortWaitQueue();
         }
+        Logger.log(this.waitQueue);
         return index < this.runningQueueLimit;
     }
 
