@@ -30,8 +30,8 @@ export class ScheduleService {
     }
 
     migrateDoneQueueToWaitQueue() {
-        const waitDtos = this.doneQueue.filter(i => Math.abs(i.targetTemperature - i.currentTemperature) > 2);
-        this.doneQueue = this.doneQueue.filter(i => !(Math.abs(i.targetTemperature - i.currentTemperature) > 2))
+        const waitDtos = this.doneQueue.filter(i => Math.abs(i.targetTemperature - i.currentTemperature) > 1);
+        this.doneQueue = this.doneQueue.filter(i => !(Math.abs(i.targetTemperature - i.currentTemperature) > 1))
         waitDtos.forEach(i => this.waitQueue.push(i));
         this.sortWaitQueue();
     }
