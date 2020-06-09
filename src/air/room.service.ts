@@ -34,6 +34,10 @@ export class RoomService {
         return this.roomRepository.findOne({ roomName: roomName });
     }
 
+    async getRooms(): Promise<RoomEntity[]> {
+        return this.roomRepository.find();
+    }
+
     async findIdByName(roomName: string): Promise<number | undefined> {
         const room = await this.roomRepository.findOne({ roomName: roomName });
         if (room) {

@@ -3,14 +3,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, MoreThan } from 'typeorm';
 import { TicketEntity } from 'src/entitiy/ticket.entity';
 import * as moment from 'moment';
+import { ApiProperty } from '@nestjs/swagger';
 
-export interface Bill {
+export class Bill {
+    @ApiProperty()
     tickets: TicketEntity[]
+    @ApiProperty()
     bill: number
 }
 
 enum ReportType {
-    DAY, MONTH, YEAR
+    DAY = 0, MONTH = 1, YEAR = 2
 }
 
 export interface Report {
@@ -43,7 +46,7 @@ export class TicketService {
     }
     
     async getTicketsByUser(userId: number): Promise<TicketEntity[]> {
-        return this.ticketRepository.find({userId: userId});
+        return this.ticketRepository.find({userId: userId, isPaid: false});
     }
 
     async getTicketsByRoom(roomId: number, startAt: Date): Promise<TicketEntity[]> {
@@ -63,15 +66,26 @@ export class TicketService {
         }
     }
 
+    async clearTicketByUser(userId: number) {
+        this.ticketRepository.createQueryBuilder()
+            .update(TicketEntity)
+            .set({isPaid: true})
+            .where("userId = :id", { id: userId })
+            .execute();
+    }
+
     async getReportByRoom(roomId: number, reportType: ReportType): Promise<Report> {
-        var date: Date;
+        var date: Date = moment().subtract(1, 'days').toDate();
         switch (reportType) {
             case ReportType.DAY:
                 date = moment().subtract(1, 'days').toDate();
+                break;
             case ReportType.MONTH:
                 date = moment().subtract(1, 'months').toDate();
+                break;
             case ReportType.YEAR:
                 date = moment().subtract(1, 'years').toDate();
+                break;
         }
         const tickets = await this.getTicketsByRoom(roomId, date);
         return {
