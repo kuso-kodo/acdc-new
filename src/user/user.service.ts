@@ -24,6 +24,16 @@ export class UserService {
         return this.userRepository.findOne({username: username});
     }
 
+    async register(username: string, password: string) {
+        const hasNoRootRegistered = await this.userRepository.count({ username: username }) == 0;
+        if (hasNoRootRegistered) {
+            var rootUser = this.userRepository.create();
+            rootUser.username = username;
+            rootUser.password = password;
+            this.userRepository.save(rootUser);
+        }
+    }
+
     async findIdByName(username: string): Promise<number | undefined> {
         const user = await this.userRepository.findOne({ username: username });
         if(user) {

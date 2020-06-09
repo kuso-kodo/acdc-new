@@ -4,10 +4,14 @@ import { AuthService } from './auth/auth.service';
 import { ApiBody, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { LoginDto } from './dto';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { UserService } from './user/user.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService, private readonly authService: AuthService) {}
+  constructor(
+    private readonly appService: AppService, 
+    private readonly authService: AuthService,
+    private readonly userService: UserService) {}
 
   @Get()
   getHello(): string {
@@ -18,6 +22,12 @@ export class AppController {
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
+  }
+
+  @ApiOperation({ description: '注册' })
+  @Post('user/register')
+  async register(@Body() loginDto: LoginDto) {
+    this.userService.register(loginDto.username, loginDto.password);
   }
 
   @ApiBearerAuth()
