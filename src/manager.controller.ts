@@ -25,7 +25,7 @@ export class ManagerController {
         const rooms = await this.roomService.getRooms();
         var result: Report[] = []
         for (var i = 0; i < rooms.length; i++) {
-            result.push(await this.ticketService.getReportByRoom(rooms[i].id, Number(req.reportType)));
+            result.push(await this.ticketService.getReportByRoom(rooms[i].id, rooms[i].roomName ,Number(req.reportType)));
         }
         return result
     }

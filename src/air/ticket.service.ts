@@ -18,6 +18,7 @@ enum ReportType {
 
 export interface Report {
     roomId: number
+    roomName: string
     totalTime: number
     serviceCount: number
     ticketCount: number
@@ -74,7 +75,7 @@ export class TicketService {
             .execute();
     }
 
-    async getReportByRoom(roomId: number, reportType: ReportType): Promise<Report> {
+    async getReportByRoom(roomId: number, roomName: string, reportType: ReportType): Promise<Report> {
         var date: Date = moment().subtract(1, 'days').toDate();
         switch (reportType) {
             case ReportType.DAY:
@@ -90,6 +91,7 @@ export class TicketService {
         const tickets = await this.getTicketsByRoom(roomId, date);
         return {
             roomId: roomId,
+            roomName: roomName,
             totalTime: tickets.reduce((l, r) => l + ((r.endAt.getTime() - r.startAt.getTime()) / 1000 / 60), 0),
             serviceCount: tickets.reduce((l, r) => l + r.serviceCount, 0),
             ticketCount: tickets.length,
