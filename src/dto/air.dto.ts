@@ -1,22 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum AirMode {
-    HOT = 0, 
-    COLD = 1
+    COLD = 0, 
+    HOT = 1
 }
 
 export class ParamaterDto {
     @ApiProperty()
-    mode: AirMode // Fucking useless
+    mode: AirMode
+    @ApiProperty()
+    lowTemperature: number
+    @ApiProperty()
+    highTemperature: number
 
     @ApiProperty()
-    lowTemperature: number // Fucking useless
-
-    @ApiProperty()
-    highTemperature: number // Fucking useless
-
-    @ApiProperty()
-    defaultTargetTemperature: number // Fucking useless
+    defaultTargetTemperature: number
 
     @ApiProperty()
     feeRatePerCelsius: number

@@ -28,9 +28,14 @@ export class CustomerController {
     @Post('api/register')
     async login(@Body() registerRoomDto: RegisterRoomDto): Promise<any> {
         this.roomService.registerRoom(registerRoomDto);
+        const param = this.airService.getPara();
         return {
             status: true,
             peroid: 60,
+            mode: param.mode,
+            lowTemperatureLimit: param.lowTemperature,
+            highTemperatureLimit: param.highTemperature,
+            defaultTargetTemperature: param.defaultTargetTemperature,
             msg: '.'
         }
     }

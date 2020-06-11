@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { ParamaterDto } from 'src/dto/air.dto'
+import { ParamaterDto, AirMode } from 'src/dto/air.dto'
 import { RoomService } from './room.service';
 import { RoomStatusDto } from 'src/dto/room.dto';
 import * as moment from 'moment';
@@ -13,6 +13,10 @@ export class AirService {
     ) {
         this.parameter = new ParamaterDto()
         this.parameter.feeRatePerCelsius = 1;
+        this.parameter.lowTemperature = 18;
+        this.parameter.highTemperature = 28;
+        this.parameter.defaultTargetTemperature = 25;
+        this.parameter.mode = AirMode.COLD;
     }
 
     setPara(parameter: ParamaterDto) {

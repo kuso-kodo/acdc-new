@@ -13,7 +13,7 @@ export class Bill {
 }
 
 enum ReportType {
-    DAY = 0, MONTH = 1, YEAR = 2
+    DAY = 0, WEEK = 1,MONTH = 2, YEAR = 3
 }
 
 export interface Report {
@@ -80,6 +80,9 @@ export class TicketService {
         switch (reportType) {
             case ReportType.DAY:
                 date = moment().subtract(1, 'days').toDate();
+                break;
+            case ReportType.WEEK:
+                date = moment().subtract(1, 'weeks').toDate();
                 break;
             case ReportType.MONTH:
                 date = moment().subtract(1, 'months').toDate();
