@@ -24,7 +24,7 @@ export class ReceptionistController {
     async checkIn(@Body() checkInDto: CheckInDto) {
         const userId = await this.userService.findIdByName(checkInDto.userName)
         const roomId = await this.roomService.findIdByName(checkInDto.roomName)
-        this.mapService.checkIn(userId, roomId);
+        this.mapService.checkIn(roomId, userId);
     }
 
     @ApiOperation({ description: '用户退房' })
