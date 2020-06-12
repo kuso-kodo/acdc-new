@@ -47,6 +47,7 @@ export class AirService {
             dto.targetTemperature = room.targetTemperature;
             dto.isPowerOn = room.isPowerOn;
             dto.isServicing = room.isServicing;
+            dto.fanSpeed = room.fanSpeed;
             dto.serviceTime = room.isPowerOn? moment().toDate().getTime() - room.lastOnTime.getTime() : 0;
             return dto
         })

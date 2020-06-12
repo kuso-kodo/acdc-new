@@ -1,5 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { ScheduleDto } from 'src/dto/schedule.dto'
+import { AirService } from './air.service';
+import { AirMode } from 'src/dto/air.dto';
 
 @Injectable()
 export class ScheduleService {
@@ -7,7 +9,7 @@ export class ScheduleService {
     private runningQueueLimit: number;
     private doneQueue: ScheduleDto[];
 
-    constructor() {
+    constructor(private readonly airService: AirService) {
         this.waitQueue = [];
         this.runningQueueLimit = 3;
         this.doneQueue = [];
@@ -55,7 +57,13 @@ export class ScheduleService {
             this.waitQueue[index].currentTemperature = currentTemperature;
             this.waitQueue[index].targetTemperature = targetTemperature;
             this.waitQueue[index].priority = priority; 
-            if (Math.abs(currentTemperature - targetTemperature) < 0.1) {
+            var currentTemperatureExceed = false
+            if (this.airService.getPara().mode == AirMode.COLD) {
+                currentTemperatureExceed = currentTemperature > targetTemperature;
+            } else {
+                currentTemperatureExceed = currentTemperature < targetTemperature;
+            }
+            if (Math.abs(currentTemperature - targetTemperature) < 0.1 || currentTemperatureExceed) {
                 this.doneQueue.push(this.waitQueue[index]);
                 this.waitQueue = this.waitQueue.filter(i => i.roomId != roomId)
             }
