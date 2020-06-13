@@ -57,13 +57,7 @@ export class ScheduleService {
             this.waitQueue[index].currentTemperature = currentTemperature;
             this.waitQueue[index].targetTemperature = targetTemperature;
             this.waitQueue[index].priority = priority; 
-            var currentTemperatureExceed = false
-            if (this.airService.getPara().mode == AirMode.COLD) {
-                currentTemperatureExceed = currentTemperature > targetTemperature;
-            } else {
-                currentTemperatureExceed = currentTemperature < targetTemperature;
-            }
-            if (Math.abs(currentTemperature - targetTemperature) < 0.1 || currentTemperatureExceed) {
+            if (Math.abs(currentTemperature - targetTemperature) < 0.1) {
                 this.doneQueue.push(this.waitQueue[index]);
                 this.waitQueue = this.waitQueue.filter(i => i.roomId != roomId)
             }
