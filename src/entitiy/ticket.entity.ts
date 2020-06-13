@@ -37,6 +37,10 @@ export class TicketEntity {
     fanSpeed: FanSpeed
 
     @ApiProperty()
+    @Column()
+    feeRate: number
+
+    @ApiProperty()
     @Column({ type: 'float' })
     totalFee: number
 

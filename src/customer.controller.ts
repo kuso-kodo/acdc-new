@@ -80,6 +80,7 @@ export class CustomerController {
         ticket.endAt = new Date()
         ticket.serviceCount = schedule? schedule.serviceCount : 0
         ticket.totalFee = schedule?  (Math.abs(schedule.startTemperature - heartBeat.current) * this.airService.getPara().feeRatePerCelsius) : 0
+        ticket.feeRate = this.airService.getPara().feeRatePerCelsius
         ticket.fanSpeed = room.fanSpeed
         ticket.isPaid = false
         ticket.isFanSpeedChanged = false
