@@ -54,7 +54,9 @@ export class ReceptionistController {
         if (!userId) {
             userId = 0;
         }
-        return this.ticketService.getBillByUser(userId);
+        var bill = await this.ticketService.getBillByUser(userId);
+        bill.checkInTime = await this.mapService.getCheckInTimeByUser(userId);
+        return bill;
     }
 
     @ApiOperation({ description: '创建详单 by 用户名' })

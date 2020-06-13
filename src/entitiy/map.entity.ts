@@ -10,4 +10,7 @@ export class MapEntity {
 
     @Column({ unique: true })
     roomId: number
+
+    @Column()
+    checkInDate: Date
 }

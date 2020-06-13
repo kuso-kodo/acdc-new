@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MapEntity } from 'src/entitiy/map.entity';
+import * as moment from 'moment';
 
 @Injectable()
 export class MapService {
@@ -25,10 +26,19 @@ export class MapService {
         return undefined;
     }
 
+    async getCheckInTimeByUser(userId: number) {
+        const map = await this.mapRepository.findOne({ userId: userId });
+        if (map) {
+            return map.checkInDate;
+        }
+        return moment().toDate();
+    }
+
     async checkIn(roomId: number, userId: number) {
         var map = this.mapRepository.create();
         map.roomId = roomId;
         map.userId = userId;
+        map.checkInDate = moment().toDate()
         try {
             await this.mapRepository.save(map);
         } catch(err) {
