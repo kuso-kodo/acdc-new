@@ -46,6 +46,9 @@ export class ReceptionistController {
     @ApiOperation({ description: '创建详单 by 用户名' })
     @Get('rdr/:userName')
     async printRDR(@Param('userName') userName: string): Promise<TicketEntity[]> {
+        if(!userName) {
+            return [];
+        }
         return await this.createRDR(userName);
     }
 
@@ -62,6 +65,12 @@ export class ReceptionistController {
     @ApiOperation({ description: '创建详单 by 用户名' })
     @Get('invoice/:userName')
     async printInvoice(@Param('userName') userName: string): Promise<Bill> {
+        if (!userName) {
+            var bill =  new Bill();
+            bill.bill = 0;
+            bill.checkInTime = new Date();
+            bill.tickets = [];
+        }
         return await this.createInvoice(userName);
     }
 }
