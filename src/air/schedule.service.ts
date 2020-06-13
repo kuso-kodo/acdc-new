@@ -102,7 +102,6 @@ export class ScheduleService {
             this.waitQueue.push(dto);
             this.sortWaitQueue();
         }
-        Logger.log(this.waitQueue);
         return index < this.runningQueueLimit;
     }
 

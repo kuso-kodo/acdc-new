@@ -22,7 +22,6 @@ export class MapService {
         if (map) {
             return map.userId;
         }
-        Logger.log(map);
         return undefined;
     }
 

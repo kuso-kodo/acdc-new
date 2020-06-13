@@ -21,7 +21,6 @@ export class ManagerController {
     @ApiOperation({ description: '获取报表' })
     @Get('report')
     async checkRoomState(@Query() req: ReportRequestDto): Promise<Report[]> {
-        Logger.log(req);
         const rooms = await this.roomService.getRooms();
         var result: Report[] = []
         for (var i = 0; i < rooms.length; i++) {

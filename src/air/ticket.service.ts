@@ -61,8 +61,6 @@ export class TicketService {
 
     async getBillByUser(userId: number): Promise<Bill> {
         const tickets = await this.getTicketsByUser(userId);
-        Logger.log(userId);
-        Logger.log(tickets);
         return {
             tickets: tickets,
             bill: tickets.reduce((l, r) => l + r.totalFee, 0.0),
