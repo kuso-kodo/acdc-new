@@ -14,6 +14,10 @@ export class TicketEntity {
 
     @ApiProperty()
     @Column()
+    roomName: string
+
+    @ApiProperty()
+    @Column()
     userId: number
 
     @ApiProperty()

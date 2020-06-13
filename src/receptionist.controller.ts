@@ -6,11 +6,13 @@ import { UserService } from './user/user.service';
 import { RoomService } from './air/room.service';
 import { TicketService, Bill } from './air/ticket.service';
 import { TicketEntity } from './entitiy/ticket.entity';
+import { AirService } from './air/air.service';
 
 
 @Controller('receptionist')
 export class ReceptionistController {
     constructor(
+        private readonly airService: AirService,
         private readonly mapService: MapService,
         private readonly userService: UserService,
         private readonly roomService: RoomService,
@@ -59,6 +61,7 @@ export class ReceptionistController {
         }
         var bill = await this.ticketService.getBillByUser(userId);
         bill.checkInTime = await this.mapService.getCheckInTimeByUser(userId);
+        bill.feeRate = this.airService.getPara().feeRatePerCelsius;
         return bill;
     }
 

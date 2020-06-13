@@ -74,6 +74,7 @@ export class CustomerController {
         }
 
         ticket.roomId = room.id
+        ticket.roomName = room.roomName
         ticket.userId = userId
         ticket.startAt = schedule? new Date(schedule.startAt) : new Date()
         ticket.endAt = new Date()

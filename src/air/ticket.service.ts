@@ -12,6 +12,8 @@ export class Bill {
     bill: number
     @ApiProperty()
     checkInTime: Date
+    @ApiProperty()
+    feeRate: number
 }
 
 enum ReportType {
@@ -64,7 +66,8 @@ export class TicketService {
         return {
             tickets: tickets,
             bill: tickets.reduce((l, r) => l + r.totalFee, 0.0),
-            checkInTime: undefined
+            checkInTime: undefined,
+            feeRate: undefined
         }
     }
 
