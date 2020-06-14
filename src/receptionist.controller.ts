@@ -69,11 +69,58 @@ export class ReceptionistController {
     @Get('invoice/:userName')
     async printInvoice(@Param('userName') userName: string): Promise<Bill> {
         if (!userName) {
-            var bill =  new Bill();
+            var bill = new Bill();
             bill.bill = 0;
             bill.checkInTime = new Date();
             bill.tickets = [];
+            return bill;
         }
         return await this.createInvoice(userName);
     }
+
+    async createRDRByRoom(roomName: string): Promise<TicketEntity[]> {
+        var roomId = await this.roomService.findIdByName(roomName);
+        if (!roomId) {
+            return [];
+        }
+        return this.ticketService.getAllTicketsByRoom(roomId);
+    }
+
+    @ApiOperation({ description: '创建详单 by 房间名' })
+    @Get('room/rdr/:roomName')
+    async printRDRByRoom(@Param('roomName') roomName: string): Promise<TicketEntity[]> {
+        if (!roomName) {
+            return [];
+        }
+        return await this.createRDRByRoom(roomName);
+    }
+
+    async createInvoiceByRoom(roomName: string): Promise<Bill> {
+        var roomId = await this.roomService.findIdByName(roomName);
+        if (!roomId) {
+            var bill = new Bill();
+            bill.bill = 0;
+            bill.checkInTime = new Date();
+            bill.tickets = [];
+            return bill;
+        }
+        var bill = await this.ticketService.getBillByRoom(roomId);
+        bill.checkInTime = await this.mapService.getCheckInTimeByRoom(roomId);
+        bill.feeRate = this.airService.getPara().feeRatePerCelsius;
+        return bill;
+    }
+
+    @ApiOperation({ description: '创建详单 by 房间名' })
+    @Get('room/invoice/:roomName')
+    async printInvoiceByRoom(@Param('roomName') roomName: string): Promise<Bill> {
+        if (!roomName) {
+            var bill = new Bill();
+            bill.bill = 0;
+            bill.checkInTime = new Date();
+            bill.tickets = [];
+            return bill;
+        }
+        return await this.createInvoice(roomName);
+    }
+
 }

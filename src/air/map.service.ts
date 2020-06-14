@@ -33,6 +33,14 @@ export class MapService {
         return moment().toDate();
     }
 
+    async getCheckInTimeByRoom(roomId: number) {
+        const map = await this.mapRepository.findOne({ roomId: roomId });
+        if (map) {
+            return map.checkInDate;
+        }
+        return moment().toDate();
+    }
+
     async checkIn(roomId: number, userId: number) {
         var map = this.mapRepository.create();
         map.roomId = roomId;

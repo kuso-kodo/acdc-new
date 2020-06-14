@@ -61,8 +61,25 @@ export class TicketService {
         });
     }
 
+    async getAllTicketsByRoom(roomId: number): Promise<TicketEntity[]> {
+        return this.ticketRepository.find({
+            roomId: roomId,
+            isPaid: false,
+        });
+    }
+
     async getBillByUser(userId: number): Promise<Bill> {
         const tickets = await this.getTicketsByUser(userId);
+        return {
+            tickets: tickets,
+            bill: tickets.reduce((l, r) => l + r.totalFee, 0.0),
+            checkInTime: undefined,
+            feeRate: undefined
+        }
+    }
+
+    async getBillByRoom(roomId: number): Promise<Bill> {
+        const tickets = await this.getAllTicketsByRoom(roomId);
         return {
             tickets: tickets,
             bill: tickets.reduce((l, r) => l + r.totalFee, 0.0),
