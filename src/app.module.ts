@@ -11,8 +11,19 @@ import { MatainerController } from './matainer.controller';
 import { ManagerController } from './manager.controller';
 
 @Module({
-  imports: [AuthModule, UserModule, AirModule, TypeOrmModule.forRoot({autoLoadEntities: true})],
-  controllers: [AppController, CustomerController, ReceptionistController, MatainerController, ManagerController],
+  imports: [
+    AuthModule,
+    UserModule,
+    AirModule,
+    TypeOrmModule.forRoot({ autoLoadEntities: true }),
+  ],
+  controllers: [
+    AppController,
+    CustomerController,
+    ReceptionistController,
+    MatainerController,
+    ManagerController,
+  ],
   providers: [AppService],
 })
 export class AppModule {}

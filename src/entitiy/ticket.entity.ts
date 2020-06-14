@@ -1,62 +1,62 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { FanSpeed } from './room.entity'
+import { FanSpeed } from './room.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class TicketEntity {
-    @ApiProperty()
-    @PrimaryGeneratedColumn()
-    id: number;
+  @ApiProperty()
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ApiProperty()
-    @Column()
-    roomId: number
+  @ApiProperty()
+  @Column()
+  roomId: number;
 
-    @ApiProperty()
-    @Column()
-    roomName: string
+  @ApiProperty()
+  @Column()
+  roomName: string;
 
-    @ApiProperty()
-    @Column()
-    userId: number
+  @ApiProperty()
+  @Column()
+  userId: number;
 
-    @ApiProperty()
-    @Column({ type: 'timestamp without time zone' })
-    startAt: Date
+  @ApiProperty()
+  @Column({ type: 'timestamp without time zone' })
+  startAt: Date;
 
-    @ApiProperty()
-    @Column({ type: 'timestamp without time zone' })
-    endAt: Date
+  @ApiProperty()
+  @Column({ type: 'timestamp without time zone' })
+  endAt: Date;
 
-    @ApiProperty()
-    @Column()
-    serviceCount: number
+  @ApiProperty()
+  @Column()
+  serviceCount: number;
 
-    @ApiProperty()
-    @Column()
-    fanSpeed: FanSpeed
+  @ApiProperty()
+  @Column()
+  fanSpeed: FanSpeed;
 
-    @ApiProperty()
-    @Column()
-    feeRate: number
+  @ApiProperty()
+  @Column()
+  feeRate: number;
 
-    @ApiProperty()
-    @Column({ type: 'float' })
-    totalFee: number
+  @ApiProperty()
+  @Column({ type: 'float' })
+  totalFee: number;
 
-    @ApiProperty()
-    @Column()
-    isPaid: boolean
+  @ApiProperty()
+  @Column()
+  isPaid: boolean;
 
-    @ApiProperty()
-    @Column()
-    isShutDownEvent: boolean
+  @ApiProperty()
+  @Column()
+  isShutDownEvent: boolean;
 
-    @ApiProperty()
-    @Column()
-    isFanSpeedChanged: boolean
+  @ApiProperty()
+  @Column()
+  isFanSpeedChanged: boolean;
 
-    @ApiProperty()
-    @Column()
-    isTargetTemperatureChanged: boolean
+  @ApiProperty()
+  @Column()
+  isTargetTemperatureChanged: boolean;
 }
