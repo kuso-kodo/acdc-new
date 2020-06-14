@@ -59,8 +59,8 @@ export class CustomerController {
     const room = await this.roomService.findRoom(heartBeat.room);
     this.roomService.updateRoomStatus(heartBeat);
     const schedule = await this.scheduleService.findScheduleById(room.id);
-    var userId = await this.mapService.findUserByRoom(room.id);
-    var ticket = this.ticketService.generateNewTicket();
+    let userId = await this.mapService.findUserByRoom(room.id);
+    const ticket = this.ticketService.generateNewTicket();
     if (!userId) {
       userId = 0;
     }

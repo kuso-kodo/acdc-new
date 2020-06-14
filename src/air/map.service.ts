@@ -43,7 +43,7 @@ export class MapService {
   }
 
   async checkIn(roomId: number, userId: number) {
-    var map = this.mapRepository.create();
+    const map = this.mapRepository.create();
     map.roomId = roomId;
     map.userId = userId;
     map.checkInDate = moment().toDate();

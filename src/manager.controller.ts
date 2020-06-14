@@ -30,8 +30,8 @@ export class ManagerController {
   @Get('report')
   async checkRoomState(@Query() req: ReportRequestDto): Promise<Report[]> {
     const rooms = await this.roomService.getRooms();
-    var result: Report[] = [];
-    for (var i = 0; i < rooms.length; i++) {
+    const result: Report[] = [];
+    for (let i = 0; i < rooms.length; i++) {
       result.push(
         await this.ticketService.getReportByRoom(
           rooms[i].id,

@@ -16,7 +16,7 @@ export class RoomService {
     if (await this.findRoom(registerRoomDto.room)) {
       return;
     }
-    var newRoom = this.roomRepository.create();
+    const newRoom = this.roomRepository.create();
     newRoom.roomName = registerRoomDto.room;
     newRoom.isPowerOn = false;
     newRoom.isServicing = false;
@@ -49,7 +49,7 @@ export class RoomService {
   }
 
   async updateRoomStatus(status: HeartBeatRequestDto) {
-    var room = await this.findRoom(status.room);
+    const room = await this.findRoom(status.room);
 
     if (room) {
       room.currentTemperature = status.current;
@@ -61,7 +61,7 @@ export class RoomService {
   }
 
   async updateRoomIsServicing(roomId: number, isServicing: boolean) {
-    var room = await this.roomRepository.findOne({ id: roomId });
+    const room = await this.roomRepository.findOne({ id: roomId });
 
     if (room) {
       if (room.isServicing == false && isServicing) {

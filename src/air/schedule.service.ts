@@ -54,7 +54,7 @@ export class ScheduleService {
       this.runningQueue.length < this.runningQueueLimit &&
       this.waitQueue.length > 0
     ) {
-      var temp = this.waitQueue.pop();
+      const temp = this.waitQueue.pop();
       temp.touched = false;
       this.runningQueue.push(temp);
     }
@@ -68,7 +68,7 @@ export class ScheduleService {
       );
     });
     while (this.waitQueue.length > 0) {
-      var temp = this.waitQueue.pop();
+      const temp = this.waitQueue.pop();
       if (Math.abs(temp.currentTemperature - temp.targetTemperature) <= 0.1) {
         this.doneQueue.push(temp);
       } else {
@@ -89,13 +89,13 @@ export class ScheduleService {
   }
 
   findScheduleById(roomId: number): undefined | ScheduleDto {
-    var dto = this.runningQueue.find((i) => i.roomId == roomId);
+    const dto = this.runningQueue.find((i) => i.roomId == roomId);
     if (dto) {
       return dto;
     }
-    var dto = this.waitQueue.find((i) => i.roomId == roomId);
-    if (dto) {
-      return dto;
+    const dto2 = this.waitQueue.find((i) => i.roomId == roomId);
+    if (dto2) {
+      return dto2;
     }
     return this.doneQueue.find((i) => i.roomId == roomId);
   }
@@ -133,7 +133,7 @@ export class ScheduleService {
       this.migrateDoneQueueToWaitQueue();
       return;
     }
-    var dto = new ScheduleDto();
+    const dto = new ScheduleDto();
     dto.roomId = roomId;
     dto.startTemperature = currentTemperature;
     dto.currentTemperature = currentTemperature;
@@ -145,8 +145,8 @@ export class ScheduleService {
   }
 
   isRoomInService(roomId: number): boolean {
-    var index = this.runningQueue.findIndex((i) => i.roomId == roomId);
-    var dto = this.runningQueue.find((i) => i.roomId == roomId);
+    const index = this.runningQueue.findIndex((i) => i.roomId == roomId);
+    const dto = this.runningQueue.find((i) => i.roomId == roomId);
     if (!dto) {
       this.roomService.updateRoomIsServicing(roomId, false);
       return false;

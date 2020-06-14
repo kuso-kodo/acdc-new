@@ -16,7 +16,7 @@ export class UserService {
     const hasNoRootRegistered =
       (await this.userRepository.count({ username: 'user' })) == 0;
     if (hasNoRootRegistered) {
-      var rootUser = this.userRepository.create();
+      const rootUser = this.userRepository.create();
       rootUser.username = 'user';
       rootUser.password = 'password';
       this.userRepository.save(rootUser);
@@ -31,7 +31,7 @@ export class UserService {
     const hasNoRootRegistered =
       (await this.userRepository.count({ username: username })) == 0;
     if (hasNoRootRegistered) {
-      var rootUser = this.userRepository.create();
+      const rootUser = this.userRepository.create();
       rootUser.username = username;
       rootUser.password = password;
       this.userRepository.save(rootUser);

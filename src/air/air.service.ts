@@ -37,7 +37,7 @@ export class AirService {
 
   async getRoomStatus(): Promise<RoomStatusDto[]> {
     return (await this.roomService.getRoomStatus()).map((room) => {
-      var dto = new RoomStatusDto();
+      const dto = new RoomStatusDto();
       dto.id = room.id;
       dto.feeRate = this.parameter.feeRatePerCelsius;
       dto.roomName = room.roomName;

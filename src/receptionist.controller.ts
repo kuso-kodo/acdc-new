@@ -52,11 +52,11 @@ export class ReceptionistController {
   }
 
   async createInvoice(userName: string): Promise<Bill> {
-    var userId = await this.userService.findIdByName(userName);
+    let userId = await this.userService.findIdByName(userName);
     if (!userId) {
       userId = 0;
     }
-    var bill = await this.ticketService.getBillByUser(userId);
+    const bill = await this.ticketService.getBillByUser(userId);
     bill.checkInTime = await this.mapService.getCheckInTimeByUser(userId);
     bill.feeRate = this.airService.getPara().feeRatePerCelsius;
     return bill;
@@ -66,7 +66,7 @@ export class ReceptionistController {
   @Get('invoice/:userName')
   async printInvoice(@Param('userName') userName: string): Promise<Bill> {
     if (!userName) {
-      var bill = new Bill();
+      const bill = new Bill();
       bill.bill = 0;
       bill.checkInTime = new Date();
       bill.tickets = [];
@@ -76,7 +76,7 @@ export class ReceptionistController {
   }
 
   async createRDRByRoom(roomName: string): Promise<TicketEntity[]> {
-    var roomId = await this.roomService.findIdByName(roomName);
+    const roomId = await this.roomService.findIdByName(roomName);
     if (!roomId) {
       return [];
     }
@@ -95,7 +95,7 @@ export class ReceptionistController {
   }
 
   async createInvoiceByRoom(roomName: string): Promise<Bill> {
-    var roomId = await this.roomService.findIdByName(roomName);
+    const roomId = await this.roomService.findIdByName(roomName);
     if (!roomId) {
       var bill = new Bill();
       bill.bill = 0;
@@ -113,7 +113,7 @@ export class ReceptionistController {
   @Get('room/invoice/:roomName')
   async printInvoiceByRoom(@Param('roomName') roomName: string): Promise<Bill> {
     if (!roomName) {
-      var bill = new Bill();
+      const bill = new Bill();
       bill.bill = 0;
       bill.checkInTime = new Date();
       bill.tickets = [];

@@ -110,7 +110,7 @@ export class TicketService {
     roomName: string,
     reportType: ReportType,
   ): Promise<Report> {
-    var date: Date = moment().subtract(1, 'days').toDate();
+    let date: Date = moment().subtract(1, 'days').toDate();
     switch (reportType) {
       case ReportType.DAY:
         date = moment().subtract(1, 'days').toDate();
