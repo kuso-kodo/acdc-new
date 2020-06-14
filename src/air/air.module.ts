@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TicketEntity } from 'src/entitiy/ticket.entity';
-import { RoomEntity } from 'src/entitiy/room.entity';
 import { MapEntity } from 'src/entitiy/map.entity';
-import { RoomService } from './room.service';
-import { MapService } from './map.service';
+import { RoomEntity } from 'src/entitiy/room.entity';
+import { TicketEntity } from 'src/entitiy/ticket.entity';
 import { AirService } from './air.service';
+import { MapService } from './map.service';
+import { RoomService } from './room.service';
 import { ScheduleService } from './schedule.service';
 import { TicketService } from './ticket.service';
 

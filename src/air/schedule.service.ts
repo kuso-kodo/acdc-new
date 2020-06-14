@@ -1,7 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ScheduleDto } from 'src/dto/schedule.dto';
 import { AirService } from './air.service';
-import { AirMode } from 'src/dto/air.dto';
 import { RoomService } from './room.service';
 
 @Injectable()

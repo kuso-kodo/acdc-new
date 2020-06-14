@@ -1,29 +1,12 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Body,
-  UseGuards,
-  Request,
-  Logger,
-} from '@nestjs/common';
-import { AppService } from './app.service';
-import { AuthService } from './auth/auth.service';
-import {
-  ApiBody,
-  ApiOperation,
-  ApiBearerAuth,
-  ApiResponse,
-} from '@nestjs/swagger';
-import { LoginDto, RegisterRoomDto } from './dto';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { RoomService } from './air/room.service';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { AirService } from './air/air.service';
 import { MapService } from './air/map.service';
-import { TicketService } from './air/ticket.service';
-import { HeartBeatRequestDto, HeartBeatResponseDto } from './dto/heartbeat.dto';
+import { RoomService } from './air/room.service';
 import { ScheduleService } from './air/schedule.service';
-import { ScheduleDto } from './dto/schedule.dto';
+import { TicketService } from './air/ticket.service';
+import { RegisterRoomDto } from './dto';
+import { HeartBeatRequestDto, HeartBeatResponseDto } from './dto/heartbeat.dto';
 
 @Controller()
 export class CustomerController {

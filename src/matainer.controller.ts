@@ -1,11 +1,5 @@
-import { Controller, Post, Get, Body, Param } from '@nestjs/common';
-import { MapService } from './air/map.service';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { CheckInDto, CheckOutDto } from './dto';
-import { UserService } from './user/user.service';
-import { RoomService } from './air/room.service';
-import { TicketService, Bill } from './air/ticket.service';
-import { TicketEntity } from './entitiy/ticket.entity';
 import { AirService } from './air/air.service';
 import { ParamaterDto } from './dto/air.dto';
 import { RoomStatusDto } from './dto/room.dto';

@@ -1,9 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, MoreThan } from 'typeorm';
-import { TicketEntity } from 'src/entitiy/ticket.entity';
-import * as moment from 'moment';
+import { Injectable } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as moment from 'moment';
+import { TicketEntity } from 'src/entitiy/ticket.entity';
+import { MoreThan, Repository } from 'typeorm';
 
 export class Bill {
   @ApiProperty()

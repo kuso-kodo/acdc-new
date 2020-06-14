@@ -1,12 +1,12 @@
-import { Controller, Post, Get, Body, Param } from '@nestjs/common';
-import { MapService } from './air/map.service';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { CheckInDto, CheckOutDto } from './dto';
-import { UserService } from './user/user.service';
-import { RoomService } from './air/room.service';
-import { TicketService, Bill } from './air/ticket.service';
-import { TicketEntity } from './entitiy/ticket.entity';
 import { AirService } from './air/air.service';
+import { MapService } from './air/map.service';
+import { RoomService } from './air/room.service';
+import { Bill, TicketService } from './air/ticket.service';
+import { CheckInDto, CheckOutDto } from './dto';
+import { TicketEntity } from './entitiy/ticket.entity';
+import { UserService } from './user/user.service';
 
 @Controller('receptionist')
 export class ReceptionistController {

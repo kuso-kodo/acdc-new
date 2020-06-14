@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ParamaterDto, AirMode } from 'src/dto/air.dto';
-import { RoomService } from './room.service';
-import { RoomStatusDto } from 'src/dto/room.dto';
 import * as moment from 'moment';
+import { AirMode, ParamaterDto } from 'src/dto/air.dto';
+import { RoomStatusDto } from 'src/dto/room.dto';
+import { RoomService } from './room.service';
 
 @Injectable()
 export class AirService {
