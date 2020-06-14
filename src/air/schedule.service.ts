@@ -92,13 +92,15 @@ export class ScheduleService {
             return false;
         }
         if (index < this.runningQueueLimit) {
-            var dto = this.waitQueue[index];
-            dto.startAt = new Date().getTime();
-            dto.serviceCount = dto.serviceCount + 1;
             this.roomService.updateRoomIsServicing(roomId, true);
-            this.waitQueue = this.waitQueue.filter(i => i.roomId != roomId);
-            this.waitQueue.push(dto);
-            this.sortWaitQueue();
+            global.setTimeout(() => {
+                var dto = this.waitQueue[index];
+                dto.startAt = new Date().getTime();
+                dto.serviceCount = dto.serviceCount + 1;
+                this.waitQueue = this.waitQueue.filter(i => i.roomId != roomId);
+                this.waitQueue.push(dto);
+                this.sortWaitQueue();
+            }, 30000);
         } else {
             this.roomService.updateRoomIsServicing(roomId, false);
         }
