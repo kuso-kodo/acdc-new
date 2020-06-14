@@ -50,15 +50,22 @@ export class RoomService {
         var room = await this.findRoom(status.room);
 
         if (room) {
-            if ((room.isPowerOn == false && status.power == true) ||
-                (room.targetTemperature != status.current) ||
-                (room.fanSpeed != status.wind)) {
-                room.lastOnTime = new Date();
-            }
             room.currentTemperature = status.current;
             room.targetTemperature = status.target;
             room.fanSpeed = status.wind;
             room.isPowerOn = status.power;
+            this.roomRepository.save(room);
+        }
+    }
+
+    async updateRoomIsServicing(roomId: number, isServicing: boolean) {
+        var room = await this.roomRepository.findOne({id: roomId});
+
+        if (room) {
+            if(room.isServicing == false && isServicing) {
+                room.lastOnTime = new Date();
+            }
+            room.isServicing = isServicing;
             this.roomRepository.save(room);
         }
     }

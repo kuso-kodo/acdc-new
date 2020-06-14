@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { ScheduleDto } from 'src/dto/schedule.dto'
 import { AirService } from './air.service';
 import { AirMode } from 'src/dto/air.dto';
+import { RoomService } from './room.service';
 
 @Injectable()
 export class ScheduleService {
@@ -9,7 +10,8 @@ export class ScheduleService {
     private runningQueueLimit: number;
     private doneQueue: ScheduleDto[];
 
-    constructor(private readonly airService: AirService) {
+    constructor(private readonly airService: AirService,
+        private readonly roomService: RoomService) {
         this.waitQueue = [];
         this.runningQueueLimit = 3;
         this.doneQueue = [];
@@ -86,15 +88,19 @@ export class ScheduleService {
     isRoomInService(roomId: number): boolean {
         var index = this.waitQueue.findIndex(i => i.roomId == roomId);
         if(index == -1) {
+            this.roomService.updateRoomIsServicing(roomId, false);
             return false;
         }
         if (index < this.runningQueueLimit) {
             var dto = this.waitQueue[index];
             dto.startAt = new Date().getTime();
             dto.serviceCount = dto.serviceCount + 1;
+            this.roomService.updateRoomIsServicing(roomId, true);
             this.waitQueue = this.waitQueue.filter(i => i.roomId != roomId);
             this.waitQueue.push(dto);
             this.sortWaitQueue();
+        } else {
+            this.roomService.updateRoomIsServicing(roomId, false);
         }
         return index < this.runningQueueLimit;
     }
