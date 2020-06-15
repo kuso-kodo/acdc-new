@@ -119,6 +119,6 @@ export class ReceptionistController {
       bill.tickets = [];
       return bill;
     }
-    return await this.createInvoice(roomName);
+    return await this.createInvoiceByRoom(roomName);
   }
 }
