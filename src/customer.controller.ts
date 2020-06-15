@@ -25,7 +25,7 @@ export class CustomerController {
     const param = this.airService.getPara();
     return {
       status: true,
-      peroid: 30,
+      peroid: 60,
       mode: param.mode,
       lowTemperatureLimit: param.lowTemperature,
       highTemperatureLimit: param.highTemperature,
